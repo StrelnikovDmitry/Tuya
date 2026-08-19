@@ -1,5 +1,7 @@
 # tuya
 
+<img src="gallery/icon.svg" width="310" height="200" />
+
 tuya is a lightweight and minimalistic library for creating TUIs. It uses dirty-rectangles technology pared with reactive rendering model only for specific slices.
 
 ## Technology
