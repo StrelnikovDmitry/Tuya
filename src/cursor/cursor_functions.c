@@ -5,3 +5,8 @@
 void move_cursor(int x, int y) {
     printf("\033[%d;%dH", y, x);
 }
+
+//clears everything at the right side of the cursor
+void clear_the_rest() {
+    printf("\033[K");
+}
