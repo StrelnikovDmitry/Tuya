@@ -18,9 +18,13 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
 void tuya_shutdown() {
     printf("\033[1049l\033[0m\033[?25l");
     fflush(stdout);
-    abort();
 }
 
+void tuya_fatal(char *error_text) {
+    tuya_shutdown();
+    fputs(error_text, stderr);
+    exit(1);
+}
 
 // If you want to update the whole screen every frame, you should use multiplicator 4 or more.
 // Either way, 0.5 or 1 is usually enough.
@@ -32,10 +36,7 @@ size_t get_buffer_size(float multiply_by) {
         return buffer_size;
     }
     else {
-        fputs("TUYA ERROR: NO TERMINAL SIZE\nThis usually means stdout is not connected to a terminal, or your OS isn't supported yet.\n\n Check official tuya github: https://github.com/StrelnikovDmitry/tuya/issues or write your own issue.", stderr);
-        // TEMPORARY WAY OF CRASHING PROGRAMM: it will change after tuya_shutdown function will be created
-        abort();
-        // TODO:
-        // make normal tuya_shutdown function
+        tuya_fatal("TUYA ERROR: NO TERMINAL SIZE\nThis usually means stdout is not connected to a terminal, or your OS isn't supported yet.\n\n Check official tuya github: https://github.com/StrelnikovDmitry/tuya/issues or write your own issue.");
+        return 0;
     }
 }
