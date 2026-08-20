@@ -8,7 +8,7 @@
 // if should_hide_cursor does not equal zero cursor hides
 void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
     setvbuf(stdout, NULL, _IOFBF, buffer_size);
-    printf("\033[1;1H\033[2J");
+    printf("\033[1049h\033[1;1H\033[2J");
     if (should_hide_cursor) {
         printf("\033[?25l");
     }
@@ -16,7 +16,7 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
 }
 
 void tuya_shutdown() {
-    printf("\033[0m\033[?25l");
+    printf("\033[1049l\033[0m\033[?25l");
     fflush(stdout);
     abort();
 }
