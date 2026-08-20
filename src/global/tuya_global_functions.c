@@ -16,7 +16,7 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
 }
 
 void tuya_shutdown() {
-    printf("\033[1049l\033[0m\033[?25l");
+    printf("\033[1049l\033[0m\033[?25h");
     fflush(stdout);
 }
 
