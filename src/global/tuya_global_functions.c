@@ -15,6 +15,13 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
     fflush(stdout);
 }
 
+void tuya_shutdown() {
+    printf("\033[0m\033[?25l");
+    fflush(stdout);
+    abort();
+}
+
+
 // If you want to update the whole screen every frame, you should use multiplicator 4 or more.
 // Either way, 0.5 or 1 is usually enough.
 size_t get_buffer_size(float multiply_by) {
