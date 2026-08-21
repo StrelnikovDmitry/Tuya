@@ -15,11 +15,13 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
     fflush(stdout);
 }
 
+// restoring terminal after the programm runs
 void tuya_shutdown() {
     printf("\033[1049l\033[0m\033[?25h");
     fflush(stdout);
 }
 
+// closing app with fatal error
 void tuya_fatal(char *error_text) {
     tuya_shutdown();
     fputs(error_text, stderr);
