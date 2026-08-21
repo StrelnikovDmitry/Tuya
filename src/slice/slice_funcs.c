@@ -4,7 +4,8 @@
 Slice create_slice(int x1, int y1, int x2, int y2, char *content) {
 	Slice slice;
 
-	slice.pointer = malloc(sizeof(char)*(x2-x1)*(y2-y1)+1);
+	slice.size = sizeof(char)*(x2-x1)*(y2-y1)+1;
+	slice.pointer = malloc(slice.size);
 
 	slice.x1 = x1;
 	slice.y1 = y1;

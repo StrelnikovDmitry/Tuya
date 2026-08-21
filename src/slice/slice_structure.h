@@ -6,6 +6,7 @@ typedef struct {
 	int y1;
 	int x2;
 	int y2;
+	int size;
 	char *pointer;
 } Slice;
 
