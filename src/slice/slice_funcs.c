@@ -17,9 +17,20 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 	return slice;
 }
 
+int get_honest_width(Slice *sl) {
+    return ((sl -> x2 + 1) - (sl -> x1 - 1));
+}
+
+int get_width(Slice *sl) {
+    return (sl -> x2 - (sl -> x1 - 1));
+}
+
+int get_height(Slice *sl) {
+    return (sl -> y2 - (sl -> y1 - 1));
+}
 
 void slice_update_force(Slice sl, char *content) {
-    int width = (sl.x2+1) - (sl.x1 - 1);
+    int width = get_honest_width(&sl);
     int count_lines = 1;
     for (int i = 0; i < sl.size; i++) {
         // if new state ended, end the content in slice
