@@ -5,6 +5,7 @@
 Slice create_slice(int x1, int y1, int x2, int y2) {
     Slice slice;
 
+    // to store '\0' and '\n', width should bee bigger by one.
 	slice.size = sizeof(char) * ((x2 - (x1 - 1)) + 1) * (y2 - (y1 - 1));
 	slice.pointer = malloc(slice.size);
 	slice.pointer[slice.size-1] = '\0';
@@ -17,14 +18,17 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 	return slice;
 }
 
+// getting actual width (you can see why x2 - (x1 - 1) does not work well higher)
 int get_honest_width(Slice *sl) {
     return ((sl -> x2 + 1) - (sl -> x1 - 1));
 }
 
+// getting displayable width
 int get_width(Slice *sl) {
     return (sl -> x2 - (sl -> x1 - 1));
 }
 
+// get height
 int get_height(Slice *sl) {
     return (sl -> y2 - (sl -> y1 - 1));
 }
