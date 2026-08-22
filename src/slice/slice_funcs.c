@@ -1,6 +1,7 @@
-#include "slice_structure.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "slice_structure.h"
+#include "../cursor/cursor_funcs.h"
 
 Slice create_slice(int x1, int y1, int x2, int y2) {
     Slice slice;
@@ -65,7 +66,7 @@ void slice_update_force(Slice sl, char *content) {
         }
     }
     // moving cursor (need to change to my own function)
-    printf("\033[%d;%dH", sl.y1, sl.x1);
+    move_cursor(sl.x1, sl.y1);
 
     // printing new string
     printf("%s", sl.pointer);
