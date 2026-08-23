@@ -46,3 +46,7 @@ int get_length(int n) {
 		}
 	}
 }
+
+int moving_cursor_cost(int x, int y) {
+	return 4+get_length(x)+get_length(y);	
+}
