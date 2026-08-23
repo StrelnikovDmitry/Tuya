@@ -1,3 +1,5 @@
+#include "../slice_structure.h"
+
 int get_length(int n) {
 	int length = 1;
 	length += (n > 9);
@@ -15,4 +17,14 @@ int get_length(int n) {
 
 int moving_cursor_cost(int x, int y) {
 	return 4+get_length(x)+get_length(y);	
+}
+
+void update(Slice* sl, char* string) {
+	int i = 0;
+	while (sl->pointer[i] != '\0') {
+		if (string[i] != sl->pointer[i]) {
+			sl->pointer[i] = string[i];
+		}
+		i++;
+	}
 }
