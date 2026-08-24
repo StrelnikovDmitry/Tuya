@@ -1,3 +1,5 @@
+#include <stdio.h> 
+#include "../slice_structure.h"
 #include "../slice_structure.h"
 
 int get_length(int n) {
@@ -21,9 +23,25 @@ int moving_cursor_cost(int x, int y) {
 
 void update(Slice* sl, char* string) {
 	int i = 0;
+	int start_edit = 0;
+	int end_edit = 0;
+	unsigned char edit = 0;
 	while (sl->pointer[i] != '\0') {
 		if (string[i] != sl->pointer[i]) {
+			if (!edit) {
+				start_edit = i;
+				edit = 1;
+			}
+			end_edit = i;
 			sl->pointer[i] = string[i];
+		}
+		if (edit) {
+			edit = 0;
+			printf("\033[%d;%dH", start_edit % get_width(sl), start_edit / get_width(sl));
+			for (int i = start_edit; i <= end_edit; i++) {
+				printf("%c", string[i]);
+			}
+			fflush(stdout);
 		}
 		i++;
 	}
