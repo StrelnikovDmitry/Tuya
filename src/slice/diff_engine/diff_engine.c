@@ -38,8 +38,8 @@ void update(Slice* sl, char* string) {
 		if (edit) {
 			edit = 0;
 			printf("\033[%d;%dH", start_edit % get_width(sl), start_edit / get_width(sl));
-			for (int i = start_edit; i <= end_edit; i++) {
-				printf("%c", string[i]);
+			for (int j = start_edit; j <= end_edit; j++) {
+				printf("%c", string[j]);
 			}
 			fflush(stdout);
 		}
