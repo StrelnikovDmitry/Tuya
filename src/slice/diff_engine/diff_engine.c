@@ -1,5 +1,5 @@
 #include <stdio.h> 
-#include "../slice_structure.h"
+#include "../slice_funcs.h"
 #include "../slice_structure.h"
 
 int get_length(int n) {
