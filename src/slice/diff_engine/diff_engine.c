@@ -28,7 +28,12 @@ void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice
 		if (sl->pointer[c] == '\n' || sl->pointer[c] == '\0') {
 			printf("%c", sl->pointer[c]);
 	    }
-	    printf("%c", content[c]);
+	    else if (sl->pointer[c] == '\0') {
+	    	return;
+	    }
+	    else {
+	    	printf("%c", content[c]);
+	    }
 	}
 }
 
