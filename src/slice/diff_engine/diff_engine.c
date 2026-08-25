@@ -21,3 +21,26 @@ int get_length(int n) {
 int moving_cursor_cost(int x, int y) {
 	return 4+get_length(x)+get_length(y);
 }
+
+void update_slice(Slice *sl, char *content) {
+    int lines_count = 1;
+    int x = sl->x1;
+    int y = sl->y1;
+    for (int i = 0; i < sl->size; i++) {
+        x++;
+        if (sl->pointer[i] == '\0') {
+            break;
+        }
+        else if (sl->pointer[i] == '\n') {
+            lines_count++;
+            x = sl->x1;
+            y++;
+            continue;
+        }
+        else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
+            sl->pointer[i] = content[i - (lines_count - 1)];
+            move_cursor(x, y);
+            printf("%c", sl->pointer[i]);
+        }
+    }
+}
