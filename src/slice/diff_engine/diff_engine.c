@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "../slice_funcs.h"
 #include "../slice_structure.h"
 #include "../../cursor/cursor_funcs.h"
 
@@ -28,10 +27,10 @@ void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice
 		if (sl->pointer[c] == '\n' || sl->pointer[c] == '\0') {
 			printf("%c", sl->pointer[c]);
 	    }
-	    else if (sl->pointer[c] == '\0') {
+		else if (sl->pointer[c] == '\0') {
 	    	return;
 	    }
-	    else {
+		else {
 	    	printf("%c", content[c]);
 	    }
 	}
@@ -39,7 +38,7 @@ void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice
 
 void update_slice(Slice *sl, char *content) {
     int lines_count = 1;
-    
+
     int x = sl->x1;
     int y = sl->y1;
     int start_edit = 0;
@@ -47,7 +46,7 @@ void update_slice(Slice *sl, char *content) {
 
 	int start_x = 0;
 	int start_y = 0;
-    
+
     for (int i = 0; i < sl->size; i++) {
         x++;
         if (sl->pointer[i] == '\0') {
