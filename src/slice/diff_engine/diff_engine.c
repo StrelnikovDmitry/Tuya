@@ -22,6 +22,16 @@ int moving_cursor_cost(int x, int y) {
 	return 4+get_length(x)+get_length(y);
 }
 
+void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice *sl, char *content) {
+	move_cursor(start_x, start_y);
+	for (int c = start_edit; c <= end_edit; c++) {
+		if (sl->pointer[c] == '\n' || sl->pointer[c] == '\0') {
+			printf("%c", sl->pointer[c]);
+	    }
+	    printf("%c", content[c]);
+	}
+}
+
 void update_slice(Slice *sl, char *content) {
     int lines_count = 1;
     
@@ -36,7 +46,10 @@ void update_slice(Slice *sl, char *content) {
     for (int i = 0; i < sl->size; i++) {
         x++;
         if (sl->pointer[i] == '\0') {
-            break;
+			if (start_edit) {
+				update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+			}
+        	break;
         }
         else if (sl->pointer[i] == '\n') {
             lines_count++;
@@ -55,13 +68,7 @@ void update_slice(Slice *sl, char *content) {
         }
         else {
         	if (start_edit && moving_cursor_cost(start_x, start_y) < i - end_edit) {
-        		move_cursor(start_x, start_y);
-        		for (int c = start_edit; c <= end_edit; c++) {
-        			if (sl->pointer[c] == '\n' || sl->pointer[c] == '\0') {
-        				printf("%c", sl->pointer[c]);
-        			}
-        			printf("%c", content[c]);
-        		}
+        		update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
         	}
         }
     }
