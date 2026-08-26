@@ -23,20 +23,24 @@ int moving_cursor_cost(int x, int y) {
 
 void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice *sl, char *content) {
 	move_cursor(start_x, start_y);
-	for (int c = start_edit; c <= end_edit; c++) {
-		if (sl->pointer[c] == '\n' || sl->pointer[c] == '\0') {
-			printf("%c", sl->pointer[c]);
+	int lines_count = 1;
+	for (int c = start_edit-1; c < end_edit; c++) {
+		if (sl->pointer[c] == '\n') {
+			printf("\n");
+			lines_count++;
+			continue;
 	    }
 		else if (sl->pointer[c] == '\0') {
-	    	return;
+	    	break;
 	    }
-		else {
-	    	printf("%c", content[c]);
-	    }
+
+		sl->pointer[c] = content[c - (lines_count - 1)];
+	    printf("%c", content[c - (lines_count - 1)]);
 	}
+	fflush(stdout);
 }
 
-void update_slice(Slice *sl, char *content) {
+void slice_update(Slice *sl, char *content) {
     int lines_count = 1;
 
     int x = sl->x1;
@@ -48,23 +52,22 @@ void update_slice(Slice *sl, char *content) {
 	int start_y = 0;
 
     for (int i = 0; i < sl->size; i++) {
-        x++;
         if (sl->pointer[i] == '\0') {
-			if (start_edit) {
-				update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
-			}
+        	if (start_edit) {
+        		update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+          	}
         	break;
         }
         else if (sl->pointer[i] == '\n') {
             lines_count++;
             x = sl->x1;
             y++;
+            // !!!update here!!!
             continue;
         }
         else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
-            sl->pointer[i] = content[i - (lines_count - 1)];
             if (!start_edit) {
-				start_x = x;
+				start_x = x-1;
 				start_y = y;
             	start_edit = i;
             }
@@ -75,5 +78,6 @@ void update_slice(Slice *sl, char *content) {
         		update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
         	}
         }
+        x++;
     }
 }
