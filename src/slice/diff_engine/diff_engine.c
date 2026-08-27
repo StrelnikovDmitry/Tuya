@@ -55,16 +55,16 @@ void slice_update(Slice *sl, char *content) {
         }
         else if (sl->pointer[i] == '\n') {
             lines_count++;
+            update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
             x = sl->x1;
             y++;
-            update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
             start_edit = 0;
             continue;
         }
         else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
             if (!start_edit) {
 				start_x = x;
-				start_y = y;
+				start_y = y-1;
             	start_edit = i;
             }
             end_edit = i;
