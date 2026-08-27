@@ -64,8 +64,8 @@ void slice_update_force(Slice sl, char *content) {
                     sl.pointer[i] = content[i - (count_lines - 1)];
                 }
             }
-            printf("%c", sl.pointer[i]);
         }
+        printf("%c", sl.pointer[i]);
     }
     // moving cursor (need to change to my own function)
     move_cursor(sl.x1, sl.y1);
