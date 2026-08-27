@@ -8,7 +8,7 @@ int get_length(int n) {
 	length += (n > 99);
 	length += (n > 999);
 	length += (n > 9999);
-	length += (n > 99999);
+		length += (n > 99999);
 	length += (n > 999999);
 	length += (n > 9999999);
 	length += (n > 99999999);
@@ -25,12 +25,7 @@ void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice
 	move_cursor(start_x, start_y);
 	int lines_count = 1;
 	for (int c = start_edit-1; c < end_edit; c++) {
-		if (sl->pointer[c] == '\n') {
-			printf("\n");
-			lines_count++;
-			continue;
-	    }
-		else if (sl->pointer[c] == '\0') {
+		if (sl->pointer[c] == '\0') {
 	    	break;
 	    }
 
@@ -62,7 +57,7 @@ void slice_update(Slice *sl, char *content) {
             lines_count++;
             x = sl->x1;
             y++;
-            // !!!update here!!!
+            update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
             continue;
         }
         else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
