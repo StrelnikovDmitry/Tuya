@@ -35,8 +35,9 @@ int get_height(Slice *sl) {
 }
 
 void slice_update_force(Slice sl, char *content) {
-    int width = get_honest_width(&sl);
+    int width = get_width(&sl);
     int count_lines = 1;
+
     for (int i = 0; i < sl.size; i++) {
         // if new state ended, end the content in slice
         if (content[i - (count_lines - 1)] == '\0') {
@@ -58,17 +59,15 @@ void slice_update_force(Slice sl, char *content) {
                 // if there can
                 else {
                     sl.pointer[i] = '\n';
+                    move_cursor(sl.x1, count_lines - 1 + sl.y1);
                     count_lines++;
                     i++;
                     sl.pointer[i] = content[i - (count_lines - 1)];
                 }
             }
         }
+        printf("%c", sl.pointer[i]);
     }
-    // moving cursor (need to change to my own function)
-    move_cursor(sl.x1, sl.y1);
-
     // printing new string
-    printf("%s", sl.pointer);
     fflush(stdout);
 }
