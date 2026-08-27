@@ -8,7 +8,7 @@ int get_length(int n) {
 	length += (n > 99);
 	length += (n > 999);
 	length += (n > 9999);
-		length += (n > 99999);
+	length += (n > 99999);
 	length += (n > 999999);
 	length += (n > 9999999);
 	length += (n > 99999999);
@@ -63,7 +63,7 @@ void slice_update(Slice *sl, char *content) {
         }
         else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
             if (!start_edit) {
-				start_x = x-1;
+				start_x = x;
 				start_y = y;
             	start_edit = i;
             }
