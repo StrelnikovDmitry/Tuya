@@ -23,20 +23,20 @@ int moving_cursor_cost(int x, int y) {
 
 void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice *sl, char *content) {
 	move_cursor(start_x, start_y);
-	int lines_count = 1 + (start_y - sl->y1);
+	int lines_count = start_y - sl->y1;
 	for (int c = start_edit-1; c < end_edit; c++) {
 		if (sl->pointer[c] == '\0') {
 	    	break;
 	    }
 
-		sl->pointer[c] = content[c - (lines_count - 1)];
-	    printf("%c", content[c - (lines_count - 1)]);
+		sl->pointer[c] = content[c - lines_count];
+	    printf("%c", content[c - lines_count]);
 	}
 	fflush(stdout);
 }
 
 void slice_update(Slice *sl, char *content) {
-    int lines_count = 1;
+    int lines_count = 0;
 
     int x = sl->x1;
     int y = sl->y1;
@@ -61,7 +61,7 @@ void slice_update(Slice *sl, char *content) {
             start_edit = 0;
             continue;
         }
-        else if (sl->pointer[i] != content[i - (lines_count - 1)]) {
+        else if (sl->pointer[i] != content[i - lines_count]) {
             if (!start_edit) {
 				start_x = x;
 				start_y = y-1;
