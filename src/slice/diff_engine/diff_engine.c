@@ -35,7 +35,7 @@ void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice
 	fflush(stdout);
 }
 
-void slice_update(Slice *sl, char *content) {
+void update_slice(Slice *sl, char *content) {
     int lines_count = 0;
 
     int x = sl->x1;
