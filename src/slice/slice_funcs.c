@@ -34,39 +34,41 @@ int get_height(Slice *sl) {
     return (sl -> y2 - (sl -> y1 - 1));
 }
 
-void slice_update_force(Slice sl, char *content) {
-    int width = get_width(&sl);
+void slice_update_force(Slice *sl, char *content) {
+    int width = get_width(sl);
+    int height = sl->y2 - (sl->y1 - 1);
+
     int count_lines = 1;
 
-    for (int i = 0; i < sl.size; i++) {
+    for (int i = 0; i < sl->size; i++) {
         // if new state ended, end the content in slice
         if (content[i - (count_lines - 1)] == '\0') {
-            sl.pointer[i] = '\0';
+            sl->pointer[i] = '\0';
             break;
         }
         else {
             //if there shouldn't start another line
             if ((i + 1) % width) {
-                sl.pointer[i] = content[i - (count_lines - 1)];
+                sl->pointer[i] = content[i - (count_lines - 1)];
             }
             //if there should
             else {
                 // if there can't fit new line
-                if (count_lines + 1 > sl.y2 - (sl.y1 - 1)) {
-                    sl.pointer[i] = '\0';
+                if (count_lines + 1 > height) {
+                    sl->pointer[i] = '\0';
                     break;
                 }
                 // if there can
                 else {
-                    sl.pointer[i] = '\n';
-                    move_cursor(sl.x1, count_lines - 1 + sl.y1);
+                    sl->pointer[i] = '\n';
+                    move_cursor(sl->x1, count_lines - 1 + sl->y1);
                     count_lines++;
                     i++;
-                    sl.pointer[i] = content[i - (count_lines - 1)];
+                    sl->pointer[i] = content[i - (count_lines - 1)];
                 }
             }
         }
-        printf("%c", sl.pointer[i]);
+        printf("%c", sl->pointer[i]);
     }
     // printing new string
     fflush(stdout);
