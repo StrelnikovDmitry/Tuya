@@ -3,6 +3,6 @@
 
 #include "../slice_structure.h"
 
-void slice_update(Slice *sl, char *content);
+void update_slice(Slice *sl, char *content);
 
 #endif
