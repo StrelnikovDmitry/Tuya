@@ -44,18 +44,7 @@ void update_slice(Slice *sl, char *content) {
 	int start_y = 0;
 
     for (int i = 0; i < sl->size-1; i++) {
-        if (i && !(i % get_honest_width(sl))) {
-            lines_count++;
-            if (start_edit) {
-                update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
-                start_edit = 0;
-            }
-            x = sl->x1;
-            y++;
-            start_edit = 0;
-            continue;
-        }
-        else if (sl->pointer[i] != content[i - lines_count]) {
+        if (sl->pointer[i] != content[i - lines_count]) {
             if (!start_edit) {
 				start_x = x;
 				start_y = y;
@@ -68,6 +57,19 @@ void update_slice(Slice *sl, char *content) {
         		update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
         	}
         }
+
+        // checking whether we should go to anothe line
+        if (i && !(i % get_width(sl))) {
+            lines_count++;
+            if (start_edit) {
+                update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+                start_edit = 0;
+            }
+            x = sl->x1;
+            y++;
+            continue;
+        }
+
         x++;
     }
     if (start_edit) {
