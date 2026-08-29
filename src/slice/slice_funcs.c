@@ -7,7 +7,7 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
     Slice slice;
 
     // to store '\0' and '\n', width should be bigger by one.
-	slice.size = sizeof(char) * ((x2 - (x1 - 1)) + 1) * (y2 - (y1 - 1));
+	slice.size = sizeof(char) * (x2 - (x1 - 1)) * (y2 - (y1 - 1));
 	slice.pointer = malloc(slice.size);
 	slice.pointer[slice.size - 1] = '\0';
 
