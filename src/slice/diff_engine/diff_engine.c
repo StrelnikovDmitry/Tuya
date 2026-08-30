@@ -22,7 +22,7 @@ int moving_cursor_cost(int x, int y) {
 	return 4+get_length(x)+get_length(y);
 }
 
-void update_buffer(int start_x, int start_y, int start_edit, int end_edit, Slice *sl, char *content) {
+void update_sequence(int start_x, int start_y, int start_edit, int end_edit, Slice *sl, char *content) {
 	move_cursor(start_x, start_y);
 	for (int c = start_edit - 1; c <= end_edit - 1; c++) {
 		sl->buffer[c] = content[c];
@@ -43,7 +43,7 @@ void update_slice(Slice *sl, char *content) {
         // checking whether we should go to another line
         if ( i && !( i % get_width(sl) ) ) {
             if (start_edit) {
-                update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+                update_sequence(start_x, start_y, start_edit, end_edit, sl, content);
                 start_edit = 0;
             }
             x = sl->x1;
@@ -60,14 +60,14 @@ void update_slice(Slice *sl, char *content) {
         }
         else {
         	if (start_edit && moving_cursor_cost(start_x, start_y) < i - end_edit) {
-        		update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+        		update_sequence(start_x, start_y, start_edit, end_edit, sl, content);
         	}
         }
 
         x++;
     }
     if (start_edit) {
-        update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
+        update_sequence(start_x, start_y, start_edit, end_edit, sl, content);
         start_edit = 0;
     }
     fflush(stdout);
