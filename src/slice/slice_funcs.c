@@ -40,29 +40,19 @@ void FORCE_slice_update(Slice *sl, char *content) {
 
     int y = sl->y1;
 
-    for (int i = 0; i < sl->size; i++) {
+    move_cursor(sl->x1, sl->y1);
+
+    for (int i = 0; i < sl->size - 1; i++) {
         // if new state ended, end the content in slice
         if (content[i] == '\0') {
             sl->pointer[i] = '\0';
             break;
         }
         else {
-            //if there shouldn't start another line
-            if ((i + 1) % width) {
-                sl->pointer[i] = content[i];
-            }
-            //if there should
-            else {
-                // if there can't fit new line
-                if (y + 1 > sl->y1 + height) {
-                    break;
-                }
-                // if there can
-                else {
-                    sl->pointer[i] = content[i];
-                    y++;
-                    move_cursor(sl->x1, y);
-                }
+            sl->pointer[i] = content[i];
+            if (i && !( i % width ) ) {
+                y++;
+                move_cursor(sl->x1, y);
             }
         }
         printf("%c", sl->pointer[i]);
