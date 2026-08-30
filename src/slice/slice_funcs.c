@@ -34,7 +34,7 @@ int get_height(Slice *sl) {
     return (sl -> y2 - (sl -> y1 - 1));
 }
 
-/* void FORCE_slice_update(Slice *sl, char *content) {
+void FORCE_slice_update(Slice *sl, char *content) {
     int width = get_width(sl);
     int height = sl->y2 - (sl->y1 - 1);
 
@@ -60,4 +60,3 @@ int get_height(Slice *sl) {
     // printing new string
     fflush(stdout);
 }
-*/
