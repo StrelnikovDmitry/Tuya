@@ -42,7 +42,7 @@ void update_slice(Slice *sl, char *content) {
 
     for (int i = 0; i < sl->size-1; i++) {
         // checking whether we should go to anothe line
-        if ( i && !( ( i - 1 ) % get_width(sl) ) ) {
+        if ( i - 1 > 0 && !( ( i - 1 ) % get_width(sl) ) ) {
             if (start_edit) {
                 update_buffer(start_x, start_y, start_edit, end_edit, sl, content);
                 start_edit = 0;
