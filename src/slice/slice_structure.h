@@ -7,7 +7,7 @@ typedef struct {
 	int x2;
 	int y2;
 	int size;
-	char *pointer;
+	char *buffer;
 } Slice;
 
 #endif

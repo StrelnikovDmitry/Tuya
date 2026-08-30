@@ -8,8 +8,8 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 
     // to store '\0' and '\n', width should be bigger by one.
 	slice.size = (sizeof(char) * (x2 - (x1 - 1)) * (y2 - (y1 - 1))) + 1;
-	slice.pointer = malloc(slice.size);
-	slice.pointer[slice.size - 1] = '\0';
+	slice.buffer = malloc(slice.size);
+	slice.buffer[slice.size - 1] = '\0';
 
 	slice.x1 = x1;
 	slice.y1 = y1;
@@ -45,17 +45,17 @@ void FORCE_update_slice(Slice *sl, char *content) {
     for (int i = 0; i < sl->size - 1; i++) {
         // if new state ended, end the content in slice
         if (content[i] == '\0') {
-            sl->pointer[i] = '\0';
+            sl->buffer[i] = '\0';
             break;
         }
         else {
-            sl->pointer[i] = content[i];
+            sl->buffer[i] = content[i];
             if (i && !( i % width ) ) {
                 y++;
                 move_cursor(sl->x1, y);
             }
         }
-        printf("%c", sl->pointer[i]);
+        printf("%c", sl->buffer[i]);
     }
     // printing new string
     fflush(stdout);
