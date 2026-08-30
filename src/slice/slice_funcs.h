@@ -3,7 +3,7 @@
 
 #include "slice_structure.h"
 
-void FORCE_slice_update(Slice *sl, char *content);
+void FORCE_update_slice(Slice *sl, char *content);
 Slice create_slice(int x1, int y1, int x2, int y2);
 int get_honest_width(Slice *sl);
 int get_width(Slice *sl);
