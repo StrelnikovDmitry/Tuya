@@ -10,3 +10,11 @@ void move_cursor(int x, int y) {
 void clear_the_rest() {
     printf("\033[K");
 }
+
+void show_cursor() {
+    printf("\033[?25h");
+}
+
+void hide_cursor() {
+    printf("\033[?25l");
+}
