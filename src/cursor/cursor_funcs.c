@@ -18,3 +18,11 @@ void show_cursor() {
 void hide_cursor() {
     printf("\033[?25l");
 }
+
+void turn_alt_screen_on() {
+    printf("\033[?1049h");
+}
+
+void turn_alt_screen_off() {
+    printf("\033[?1049l");
+}
