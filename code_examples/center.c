@@ -25,6 +25,7 @@ int main() {
     signal(SIGWINCH, update);
     while (1) {
         if (do_redraw) {
+            do_redraw = 0;
             delete_slice(&sl);
 
             int x = (get_terminal_width() - 6) / 2;
