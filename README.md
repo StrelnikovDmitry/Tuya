@@ -29,7 +29,71 @@ Developers retain explicit control over slice allocation, positioning, and rende
 > *This section will be updated as development progresses.*
 ## Quick Start
 
-> *This section will be updated as development progresses.*
+### Basic concepts
+
+#### Initialising
+
+Before you start using the library, initialize the terminal by calling `tuya_init` at the beginning of your `main` function.
+
+`tuya_init` configures the terminal buffer size and switches the terminal to manual control mode. This means that you will need to call `fflush` manually when necessary.
+
+The function accepts two arguments:
+
+1. **Buffer size** — you can specify the value manually or use `get_buffer_size()` to calculate it automatically.
+2. **Cursor visibility** — an `unsigned char` value. If it is `0`, the cursor remains visible. Any non-zero value hides the cursor.
+
+#### Buffer size
+
+`get_buffer_size()` calculates the terminal area and multiplies it by the specified value. The optimal multiplier depends on your application, so it is worth experimenting with different values.
+
+A multiplier of `0.5` should work well for most cases.
+
+#### Shutting down
+
+When your program finishes using the library, call `tuya_shutdown()` to restore the terminal to its original state.
+
+#### Input handling
+
+> **Note:** Input handling is not implemented in the library yet, so input events must currently be handled by your application.
+
+### Example
+
+The following example creates a simple program that displays a string in the center of the terminal and redraws it whenever the terminal window is resized.
+```c
+volatile unsigned char do_redraw = 0;
+
+void update(int sig) {
+    do_redraw = 1;
+}
+
+int main() {
+    tuya_init(get_buffer_size(0.1), 1);
+
+    int x = (get_terminal_width() - 6) / 2;
+    int y = get_terminal_height() / 2;
+
+    Slice sl = create_slice(x, y, x + 6, y);
+    update_slice(&sl, "center");
+
+    signal(SIGWINCH, update);
+    while (1) {
+        if (do_redraw) {
+            clear_all();
+            free(sl.buffer);
+
+            int x = (get_terminal_width() - 6) / 2;
+            int y = get_terminal_height() / 2;
+
+            sl = create_slice(x, y, x + 6, y);
+            update_slice(&sl, "center");
+        }
+        pause();
+    }
+
+    tuya_shutdown();
+    return 0;
+}
+```
 ## Docs
 
 > *This section will be updated as development progresses.*
