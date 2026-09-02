@@ -11,6 +11,10 @@ void clear_the_rest() {
     printf("\033[K");
 }
 
+void clear_all() {
+    printf("\033[2J");
+}
+
 void show_cursor() {
     printf("\033[?25h");
 }
