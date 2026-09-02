@@ -37,6 +37,7 @@ void delete_slice(Slice *sl) {
         move_cursor(sl->x1, sl->y1 + i);
         printf("\033[%dX", width);
     }
+    fflush(stdout);
 
     free(sl->buffer);
 }
