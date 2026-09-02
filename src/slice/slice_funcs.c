@@ -23,12 +23,7 @@ void delete_slice(Slice *sl) {
     free(sl->pointer);
 }
 
-// getting actual width (you can see why x2 - (x1 - 1) does not work well higher)
-int get_honest_width(Slice *sl) {
-    return ((sl -> x2 + 1) - (sl -> x1 - 1));
-}
-
-// getting displayable width
+// get width
 int get_width(Slice *sl) {
     return (sl -> x2 - (sl -> x1 - 1));
 }
