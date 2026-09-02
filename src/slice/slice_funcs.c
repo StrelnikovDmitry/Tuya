@@ -20,7 +20,7 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 }
 
 void delete_slice(Slice *sl) {
-    free(sl->pointer);
+    free(sl->buffer);
 }
 
 // get width
