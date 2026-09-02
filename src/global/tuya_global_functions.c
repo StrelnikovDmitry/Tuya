@@ -28,17 +28,32 @@ void tuya_fatal(char *error_text) {
     exit(1);
 }
 
-// If you want to update the whole screen every frame, you should use multiplicator 4 or more.
-// Either way, 0.5 or 1 is usually enough.
-size_t get_buffer_size(float multiply_by) {
+int get_terminal_height() {
     struct winsize ws;
     int result = ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
     if (result != -1) {
-        size_t buffer_size = ws.ws_col*ws.ws_row*multiply_by;
-        return buffer_size;
+        return ws.ws_row;
     }
     else {
         tuya_fatal("TUYA ERROR: NO TERMINAL SIZE\nThis usually means stdout is not connected to a terminal, or your OS isn't supported yet.\n\n Check official tuya github: https://github.com/StrelnikovDmitry/tuya/issues or write your own issue.");
         return 0;
     }
+}
+
+int get_terminal_width() {
+    struct winsize ws;
+    int result = ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
+    if (result != -1) {
+        return ws.ws_col;
+    }
+    else {
+        tuya_fatal("TUYA ERROR: NO TERMINAL SIZE\nThis usually means stdout is not connected to a terminal, or your OS isn't supported yet.\n\n Check official tuya github: https://github.com/StrelnikovDmitry/tuya/issues or write your own issue.");
+        return 0;
+    }
+}
+
+// If you want to update the whole screen every frame, you should use multiplicator 4 or more.
+// Either way, 0.5 or 1 is usually enough.
+size_t get_buffer_size(float multiply_by) {
+    return get_terminal_height()*get_terminal_width()*multiply_by;
 }
