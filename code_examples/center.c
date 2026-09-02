@@ -7,32 +7,32 @@
 #include <unistd.h>
 #include <signal.h>
 
-Slice *sl = NULL;
+volatile unsigned char do_redraw = 0;
 
 void update(int sig) {
-    update_slice(sl, "      ");
-
-    delete_slice(sl);
-    int x = (get_terminal_width() - 6) / 2;
-    int y = get_terminal_height() / 2;
-
-    *sl = create_slice(x, y, x + 6, y);
-    update_slice(sl, "center");
+    do_redraw = 1;
 }
 
 int main() {
     tuya_init(get_buffer_size(0.1), 1);
 
-    sl = malloc(sizeof(Slice));
-
     int x = (get_terminal_width() - 6) / 2;
     int y = get_terminal_height() / 2;
-    *sl = create_slice(x, y, x + 6, y);
 
-    update_slice(sl, "center");
+    Slice sl = create_slice(x, y, x + 6, y);
+    update_slice(&sl, "center");
 
     signal(SIGWINCH, update);
     while (1) {
+        if (do_redraw) {
+            delete_slice(&sl);
+
+            int x = (get_terminal_width() - 6) / 2;
+            int y = get_terminal_height() / 2;
+
+            sl = create_slice(x, y, x + 6, y);
+            update_slice(&sl, "center");
+        }
         pause();
     }
 
