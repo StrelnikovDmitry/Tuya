@@ -1,10 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include "diff_engine/diff_engine.h"
 #include "slice_structure.h"
 #include "../cursor/cursor_funcs.h"
+
+// get width
+int get_width(Slice *sl) {
+    return (sl -> x2 - (sl -> x1 - 1));
+}
+
+// get height
+int get_height(Slice *sl) {
+    return (sl -> y2 - (sl -> y1 - 1));
+}
 
 Slice create_slice(int x1, int y1, int x2, int y2) {
     Slice slice;
@@ -23,24 +31,14 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 }
 
 void delete_slice(Slice *sl) {
-    char new_string[sl->size];
+    int width = get_width(sl);
 
-    memset(new_string, ' ', sl->size - 1);
-    new_string[sl->size - 1] = '\0';
-
-    update_slice(sl, new_string);
+    for (int i = 0; i < get_height(sl); i++) {
+        move_cursor(sl->x1, sl->y1 + i);
+        printf("\033[%dX", width);
+    }
 
     free(sl->buffer);
-}
-
-// get width
-int get_width(Slice *sl) {
-    return (sl -> x2 - (sl -> x1 - 1));
-}
-
-// get height
-int get_height(Slice *sl) {
-    return (sl -> y2 - (sl -> y1 - 1));
 }
 
 void FORCE_update_slice(Slice *sl, char *content) {
