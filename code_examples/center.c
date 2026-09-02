@@ -10,6 +10,8 @@
 Slice *sl = NULL;
 
 void update(int sig) {
+    update_slice(sl, "      ");
+
     delete_slice(sl);
     int x = (get_terminal_width() - 6) / 2;
     int y = get_terminal_height() / 2;
