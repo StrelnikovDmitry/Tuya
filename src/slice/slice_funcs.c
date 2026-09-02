@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "diff_engine/diff_engine.h"
 #include "slice_structure.h"
 #include "../cursor/cursor_funcs.h"
 
@@ -20,6 +23,13 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 }
 
 void delete_slice(Slice *sl) {
+    char new_string[sl->size];
+
+    memset(new_string, ' ', sl->size - 1);
+    new_string[sl->size - 1] = '\0';
+
+    update_slice(sl, new_string);
+
     free(sl->buffer);
 }
 
