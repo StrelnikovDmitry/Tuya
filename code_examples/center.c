@@ -2,8 +2,8 @@
 #include "../src/slice/slice_funcs.h"
 #include "../src/slice/diff_engine/diff_engine.h"
 #include "../src/global/tuya_global_funcs.h"
+#include "../src/cursor/cursor_funcs.h"
 
-#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 
@@ -25,8 +25,8 @@ int main() {
     signal(SIGWINCH, update);
     while (1) {
         if (do_redraw) {
-            do_redraw = 0;
-            delete_slice(&sl);
+            clear_all();
+            free(sl.buffer);
 
             int x = (get_terminal_width() - 6) / 2;
             int y = get_terminal_height() / 2;
