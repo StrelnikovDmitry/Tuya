@@ -17,7 +17,7 @@ int get_height(Slice *sl) {
 Slice create_slice(int x1, int y1, int x2, int y2) {
     Slice slice;
 
-    // to store '\0' and '\n', width should be bigger by one.
+    // to store terminator size of the buffer should be bigger by one
 	slice.size = (sizeof(char) * (x2 - (x1 - 1)) * (y2 - (y1 - 1))) + 1;
 	slice.buffer = malloc(slice.size);
 	slice.buffer[slice.size - 1] = '\0';
@@ -30,6 +30,10 @@ Slice create_slice(int x1, int y1, int x2, int y2) {
 	return slice;
 }
 
+// deleting slice buffer andd erasing thee insides
+//
+// THIS FUNCTIONS DOES NOT WORK WHEN RESIZING TERMINAL
+// instead use free(sl.buffer) and clear_all for SIGWINCH handling.
 void delete_slice(Slice *sl) {
     int width = get_width(sl);
 
@@ -42,6 +46,11 @@ void delete_slice(Slice *sl) {
     free(sl->buffer);
 }
 
+// LEGACY
+// used as a replacement for diff_engine func
+//
+// draws a slice without checking for changes
+// use only if bugs with default update occure
 void FORCE_update_slice(Slice *sl, char *content) {
     int width = get_width(sl);
     int height = sl->y2 - (sl->y1 - 1);
@@ -58,13 +67,15 @@ void FORCE_update_slice(Slice *sl, char *content) {
         }
         else {
             sl->buffer[i] = content[i];
+            // if a new line should start
             if (i && !( i % width ) ) {
                 y++;
                 move_cursor(sl->x1, y);
             }
         }
+        // printing char anyway
         printf("%c", sl->buffer[i]);
     }
-    // printing new string
+    // fflushing
     fflush(stdout);
 }
