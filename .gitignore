@@ -1,5 +1,4 @@
 .zed
 .idea
-compiledForLinux
-compiledForWindow
+compiled
 src/tests
