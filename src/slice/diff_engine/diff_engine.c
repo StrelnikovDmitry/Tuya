@@ -63,8 +63,11 @@ void update_slice(Slice *sl, char *content) {
             if (!start_edit) {
 				start_x = x;
 				start_y = y;
+				// assigning start_edit to an index + 1 so conditions like
+				// (start_edit) would work
             	start_edit = i + 1;
             }
+            // same as start_edit
             end_edit = i + 1;
         }
         else {
