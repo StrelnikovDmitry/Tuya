@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "slice_structure.h"
-#include "../cursor/cursor_funcs.h"
+#include "../terminal/ansi.h"
 
 // get width
 int get_width(Slice *sl) {

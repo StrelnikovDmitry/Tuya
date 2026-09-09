@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../slice_structure.h"
 #include "../slice_funcs.h"
-#include "../../cursor/cursor_funcs.h"
+#include "../../terminal/ansi.h"
 
 // branchless algorithm for findin length of an integer given
 // it could be binary search algorithm but this one is faster practically
