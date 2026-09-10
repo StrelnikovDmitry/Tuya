@@ -1,8 +1,5 @@
-#include "../src/slice/slice_structure.h"
-#include "../src/slice/slice_funcs.h"
-#include "../src/slice/diff_engine/diff_engine.h"
-#include "../src/global/tuya_global_funcs.h"
-#include "../src/cursor/cursor_funcs.h"
+#include <tuya.h>
+#include <tuya_raw.h>
 
 #include <unistd.h>
 #include <signal.h>
