@@ -5,6 +5,8 @@
 #ifndef RAW
 #define RAW
 
+#include "slice_structure.h"
+
 // ansi codes
 void move_cursor(int x, int y);
 
@@ -16,5 +18,8 @@ void hide_cursor();
 
 void turn_alt_screen_on();
 void turn_alt_screen_off();
+
+// no-diff update
+void FORCE_update_slice(Slice *sl, char *content);
 
 #endif
