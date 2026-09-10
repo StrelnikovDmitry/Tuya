@@ -59,9 +59,7 @@ If needed, you can also include tuya's experimental functions using
 #include <tuya_raw.h>
 ```
 
-tuya_raw.h contains low-level terminal and ANSI escape sequence functions used internally by the library. These functions are stable and tested, and they may be useful in applications that need direct control over terminal output.
-
-However, this API is not considered part of the stable Tuya interface. Its design does not fully match the library's philosophy and may be changed, redesigned, or replaced in future releases. In particular, some operations currently require manual handling of output flushing, which is something the library may address in the future.
+tuya_raw.h provides low-level and legacy functions whose style and semantics do not fully align with the design philosophy of the Tuya API. These functions are stable and usable, but their interface may change in the future and is not guaranteed to remain backward-compatible.
 
 **For most applications, use `tuya.h`. Use `tuya_raw.h` only if you specifically need functionality that is not available through the stable API.**
 
