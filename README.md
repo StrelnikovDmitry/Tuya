@@ -96,6 +96,12 @@ When your program finishes using the library, call `tuya_shutdown()` to restore 
 
 The following example creates a simple program that displays a string in the center of the terminal and redraws it whenever the terminal window is resized.
 ```c
+#include <tuya.h>
+#include <tuya_raw.h>
+
+#include <unistd.h>
+#include <signal.h>
+
 volatile unsigned char do_redraw = 0;
 
 void update(int sig) {
