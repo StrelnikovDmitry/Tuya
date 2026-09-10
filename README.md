@@ -26,7 +26,23 @@ Tuya manages screen rendering through isolated local update zones called slices,
 Developers retain explicit control over slice allocation, positioning, and rendering cycles, bypassing standard heavy TUI abstractions in favor of direct terminal byte control.
 ## Installation
 
-> *This section will be updated as development progresses.*
+To install Tuya to `/usr/local` using CMake, clone the repository:
+```bash
+git clone https://github.com/StrelnikovDmitry/Tuya
+cd Tuya
+```
+
+After that, configure and build the project
+```bash
+cmake -S . -B build
+cmake --build build
+```
+
+Finally, install it
+```bash
+sudo cmake --install build --prefix /usr/local
+```
+
 ## Quick Start
 
 ### Basic concepts
