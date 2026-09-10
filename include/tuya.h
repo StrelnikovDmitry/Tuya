@@ -5,14 +5,42 @@
 #ifndef TUYA
 #define TUYA
 
+#include <stdlib.h>
+
 // global functions configuring terminal, getting terminal size, etc
-#include "../src/global/tuya_global_funcs.h"
+void tuya_init(size_t buffer_size, unsigned char should_hide_cursor);
+void tuya_shutdown();
+int get_terminal_height();
+int get_terminal_width();
+size_t get_buffer_size(float multiply_by);
 
 // basic slice interactions
-#include "../src/slice/slice_funcs.h"
-#include "../src/slice/slice_structure.h"
+typedef struct {
+    // upper left corner
+    int x1;
+	int y1;
+
+	// lower right corner
+	int x2;
+	int y2;
+
+	// automatically calculated size based on area (area + 1 for terminator)
+	int size;
+
+	// a pointer to the content inside
+	char *buffer;
+} Slice;
+
+Slice create_slice(int x1, int y1, int x2, int y2);
+void delete_slice(Slice *sl);
+
+int get_honest_width(Slice *sl);
+int get_width(Slice *sl);
+int get_height(Slice *sl);
+
+void FORCE_update_slice(Slice *sl, char *content);
 
 // difference based render
-#include "../src/slice/diff_engine/diff_engine.h"
+void update_slice(Slice *sl, char *content);
 
 #endif
