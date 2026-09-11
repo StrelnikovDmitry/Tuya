@@ -1,4 +1,6 @@
 .zed
 .idea
+
+.cache
 build
 src/tests
