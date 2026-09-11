@@ -90,3 +90,37 @@ void update_slice(Slice *sl, char *content) {
     // fflushing
     fflush(stdout);
 }
+
+// LEGACY
+// used as a replacement for diff_engine func
+//
+// draws a slice without checking for changes
+// use only if bugs with default update occure
+void FORCE_update_slice(Slice *sl, char *content) {
+    int width = get_width(sl);
+    int height = sl->y2 - (sl->y1 - 1);
+
+    int y = sl->y1;
+
+    move_cursor(sl->x1, sl->y1);
+
+    for (int i = 0; i < sl->size - 1; i++) {
+        // if new state ended, end the content in slice
+        if (content[i] == '\0') {
+            sl->buffer[i] = '\0';
+            break;
+        }
+        else {
+            sl->buffer[i] = content[i];
+            // if a new line should start
+            if (i && !( i % width ) ) {
+                y++;
+                move_cursor(sl->x1, y);
+            }
+        }
+        // printing char anyway
+        printf("%c", sl->buffer[i]);
+    }
+    // fflushing
+    fflush(stdout);
+}
