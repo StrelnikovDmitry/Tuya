@@ -12,7 +12,8 @@ project(Tuya
 add_library(tuya STATIC
     src/global/tuya_global_funcs.c
 
-    src/slice/diff_engine/diff_engine.c
+    src/slice/update_funcs/update_funcs.c
+    src/slice/static/static.c
     src/slice/slice_funcs.c
 
     src/terminal/ansi.c
