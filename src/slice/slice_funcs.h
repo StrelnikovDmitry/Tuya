@@ -10,6 +10,4 @@ int get_honest_width(Slice *sl);
 int get_width(Slice *sl);
 int get_height(Slice *sl);
 
-void FORCE_update_slice(Slice *sl, char *content);
-
 #endif
