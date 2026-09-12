@@ -7,7 +7,7 @@ typedef struct {
     Slice sl;
 
     int current;
-    int aim;
-} Progress_bar;
+    int target;
+} ProgressBar;
 
 #endif

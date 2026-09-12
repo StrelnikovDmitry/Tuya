@@ -4,24 +4,24 @@
 #include "progress_bar_structure.h"
 
 // creating a progress bar
-Progress_bar create_progress_bar(int x1, int y1, int x2, int y2, int max) {
-    Progress_bar prb;
+ProgressBar create_progress_bar(int x1, int y1, int x2, int y2, int target) {
+    ProgressBar prb;
 
     prb.sl = create_slice(x1, y1, x2, y2);
 
     prb.current = 0;
-    prb.aim = max;
+    prb.target = target;
 
     return prb;
 }
 
-void update_progress_bar(Progress_bar *prb, int current) {
+void update_progress_bar(ProgressBar *prb, int current) {
     // updating current position
     prb->current = current;
 
     int width = get_width(&(prb->sl));
     int height = get_height(&(prb->sl));
-    int to_fill = (float)prb->current / prb->aim * width;
+    int to_fill = ((float)prb->current / prb->target) * width;
 
     char buffer[prb->sl.size];
     buffer[prb->sl.size - 1] = '\0';
