@@ -21,14 +21,14 @@ void update_progress_bar(Progress_bar *prb, int current) {
 
     int width = get_width(&(prb->sl));
     int height = get_height(&(prb->sl));
-    int to_fill = (prb->current / prb->aim) * width;
+    int to_fill = (float)prb->current / prb->aim * width;
 
     char buffer[prb->sl.size];
     buffer[prb->sl.size - 1] = '\0';
 
     // filling the buffer
     for (int i = 0; i < width; i++) {
-        if (i < to_fill) {
+        if (i <= to_fill) {
             // assigning all the lines at position x to '#'
             for (int h = 0; h < height; h++) {
                 buffer[i + (h * width)] = '#';
@@ -39,7 +39,6 @@ void update_progress_bar(Progress_bar *prb, int current) {
             for (int h = 0; h < height; h++) {
                 buffer[i + (h * width)] = ' ';
             }
-            break;
         }
     }
 
