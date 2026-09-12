@@ -98,7 +98,6 @@ void update_slice(Slice *sl, char *content) {
 // use only if bugs with default update occure
 void FORCE_update_slice(Slice *sl, char *content) {
     int width = get_width(sl);
-    int height = sl->y2 - (sl->y1 - 1);
 
     int y = sl->y1;
 

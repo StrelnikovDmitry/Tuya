@@ -15,6 +15,10 @@ int get_terminal_height();
 int get_terminal_width();
 size_t get_buffer_size(float multiply_by);
 
+// static print
+void print_static (int x1, int y1, int x2, int y2, char *content);
+
+// basic slice operations
 Slice create_slice(int x1, int y1, int x2, int y2);
 void delete_slice(Slice *sl);
 
@@ -24,5 +28,18 @@ int get_height(Slice *sl);
 
 // difference based render
 void update_slice(Slice *sl, char *content);
+
+// --- WIDGETS ---
+
+//progress bar
+typedef struct {
+    Slice sl;
+
+    int current;
+    int target;
+} ProgressBar;
+
+void update_progress_bar(ProgressBar *prb,int current);
+ProgressBar create_progress_bar(int x1,int y1,int x2,int y2,int max);
 
 #endif

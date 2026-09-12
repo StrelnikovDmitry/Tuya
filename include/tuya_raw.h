@@ -22,7 +22,4 @@ void turn_alt_screen_off();
 // no-diff update
 void FORCE_update_slice(Slice *sl, char *content);
 
-// static print (benig tested)
-void print_static (int x1, int y1, int x2, int y2, char *content);
-
 #endif
