@@ -136,7 +136,7 @@ int main() {
 ```
 ## Docs
 
-> *This section will be updated as development progresses.*
+Checkout [docs folder](docs/)
 ## Contributing
 
 Contributions, issues, and feature requests are welcome. Feel free to check the repository issues or submit pull requests.
