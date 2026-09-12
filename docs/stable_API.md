@@ -224,3 +224,5 @@ int main() {
     return 0;
 }
 ```
+
+> *or check out the [code in the examples folder](../examples/progress_bar.c).*
