@@ -51,6 +51,28 @@ int main() {
 }
 ```
 
+# Static print
+
+When you need to print content once inside a fixed rectangle without creating a slice or keeping a buffer, use [`print_static`](../src/slice/static/static.c#L6). It writes text within the given bounds, clips at the lower edge, and does not touch the rest of the terminal.
+
+The function takes five arguments:
+- int x1, y1 — upper left corner of the print area.
+- int x2, y2 — lower right corner of the print area.
+- char *content — null-terminated string to print. Longer content wraps within the width and stops when it reaches `y2`.
+
+### Code-example
+
+```c
+int main() {
+    tuya_init(get_buffer_size(0.5), 1);
+
+    print_static(10, 5, 20, 7, "hello static world");
+
+    tuya_shutdown();
+    return 0;
+}
+```
+
 # Slices
 
 Slices are isolated screen regions that Tuya updates instead of redrawing a global framebuffer. You allocate them yourself, place them with coordinates, and control when they are rendered.
@@ -144,6 +166,60 @@ int main() {
     update_slice(&sl, "hello");
 
     delete_slice(&sl);
+    tuya_shutdown();
+    return 0;
+}
+```
+
+# Widgets
+
+Widgets are higher-level UI pieces built on top of slices. They manage their own slice and expose a small create/update API.
+
+## Progress bar
+
+A `ProgressBar` owns a slice and fills it with `#` characters up to the current progress, leaving the rest as spaces. Updates go through the difference-based slice renderer. Recomended to use with for loops.
+
+### Creating progress bar
+
+To allocate a progress bar, use [`create_progress_bar`](../src/widgets/progress_bar.c#L7). It creates an internal slice for the given rectangle and sets progress to `0`.
+
+The function takes five arguments:
+- int x1, y1 — upper left corner of the bar.
+- int x2, y2 — lower right corner of the bar.
+- int target — target value that means 100% filled 
+
+### Code-example
+
+```c
+int main() {
+    tuya_init(get_buffer_size(0.5), 1);
+
+    ProgressBar bar = create_progress_bar(10, 5, 30, 5, 100);
+    /* YOUR CODE HERE */
+
+    tuya_shutdown();
+    return 0;
+}
+```
+
+### Updating progress bar
+
+To change the filled amount, use [`update_progress_bar`](../src/widgets/progress_bar.c#L18). It stores the new current value, rebuilds the bar content, and redraws only what changed.
+
+The function takes two arguments:
+- ProgressBar *prb — pointer to the progress bar.
+- int current — new progress value. Compared against `prb->target` to decide how much of the width to fill.
+
+### Code-example
+
+```c
+int main() {
+    tuya_init(get_buffer_size(0.5), 1);
+
+    ProgressBar bar = create_progress_bar(10, 5, 30, 5, 100);
+    update_progress_bar(&bar, 50); // half filled
+
+    delete_slice(&bar.sl);
     tuya_shutdown();
     return 0;
 }
