@@ -5,7 +5,6 @@
 // The output is clipped to the frame and does not affect the rest of the terminal.
 void print_static (int x1, int y1, int x2, int y2, char *content) {
     int width = x2 - (x1 - 1);
-    int height = y2 - (y1 - 1);
 
     // y coordinate of the cursor, needed for moving cursor when the line ends
     int y = y1;
@@ -16,6 +15,9 @@ void print_static (int x1, int y1, int x2, int y2, char *content) {
     while (content[i] != '\0') {
         if (i && !(i % width)) {
             y++;
+            if (y > y2) {
+                break;
+            }
             move_cursor(x1, y);
         }
         printf("%c", content[i]);
