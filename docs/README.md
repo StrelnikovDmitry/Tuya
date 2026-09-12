@@ -6,9 +6,10 @@ Tuya is a minimalistic TUI library designed for minimal resource consumption by 
 
 * tuya.h - stable functions
   * global functions
-    * initialising 
+    * initialising
     * getting terminal and buffer sizes
     * shutting down
+  * static print
   * slices
     * basic slice operations
       * creating slice
@@ -17,11 +18,13 @@ Tuya is a minimalistic TUI library designed for minimal resource consumption by 
       * getting slice height
     * updating
       * difference based update
+  * widgets
+    * progress bar
+      * creating progress bar
+      * updating progress bar
 * tuya_raw.h - experimental, legacy and ugly functions to use
   * legacy
     * non-difference based updating
-  * experimental
-    * static slice
   * ansi codes
     * moving cursor
     * clearing terminal
