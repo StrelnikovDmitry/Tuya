@@ -15,6 +15,9 @@ int get_terminal_height();
 int get_terminal_width();
 size_t get_buffer_size(float multiply_by);
 
+// static print
+void print_static (int x1, int y1, int x2, int y2, char *content);
+
 // basic slice operations
 Slice create_slice(int x1, int y1, int x2, int y2);
 void delete_slice(Slice *sl);
