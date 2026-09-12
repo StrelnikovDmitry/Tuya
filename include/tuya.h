@@ -32,18 +32,12 @@ void update_slice(Slice *sl, char *content);
 // --- WIDGETS ---
 
 //progress bar
-#ifndef PROGRESS_BAR_STRUCTURE
-#define PROGRESS_BAR_STRUCTURE
-
 typedef struct {
     Slice sl;
 
     int current;
     int aim;
 } Progress_bar;
-
-#endif
-
 
 void update_progress_bar(Progress_bar *prb,int current);
 Progress_bar create_progress_bar(int x1,int y1,int x2,int y2,int max);
