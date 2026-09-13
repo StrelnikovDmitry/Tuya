@@ -36,8 +36,21 @@ char* ask_input(int x1, int x2, int y, char *message) {
         // if the text is already red
         unsigned char warning = 0;
         while(read(STDIN_FILENO, &ch, 1) == 1 && (ch != 27 && ch != 10)) {
+            if (ch == 8 || ch == 127) {
+                if (counter > 0) {
+                    input[--counter] = '\0';
+
+                    printf("\b \b");
+                    if (warning) {
+                        move_cursor(x1, y);
+                        printf("\033[0m%s%s", message, input);
+                        warning = 0;
+                    }
+                    fflush(stdout);
+                }
+            }
             // if there are no more place for chars
-            if (counter >= width-message_size) {
+            else if (counter >= width-message_size) {
                 // if text is not red
                 if (warning == 0) {
                     // make it red
