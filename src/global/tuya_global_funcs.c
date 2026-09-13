@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <termios.h>
 
 // MUST BE the first command in the code
 // buffer size value can be get from the special function get_buffer_size
@@ -19,6 +20,23 @@ void tuya_init(size_t buffer_size, unsigned char should_hide_cursor) {
 void tuya_shutdown() {
     printf("\033[1049l\033[0m\033[?25h");
     fflush(stdout);
+}
+
+void enable_raw(struct termios *orig_termios) {
+    struct termios raw;
+    tcgetattr(STDIN_FILENO, orig_termios);
+    raw = *orig_termios;
+
+    raw.c_lflag &= ~(ECHO | ICANON);
+
+    raw.c_cc[VMIN] = 1;
+    raw.c_cc[VTIME] = 0;
+
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+}
+
+void disable_raw(struct termios *orig_termios) {
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, orig_termios);
 }
 
 // closing app with fatal error
