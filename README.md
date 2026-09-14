@@ -88,7 +88,7 @@ When your program finishes using the library, call `tuya_shutdown()` to restore 
 
 #### Input handling
 
-> **Note:** Input handling is not implemented in the library yet, so input events must currently be handled by your application.
+> **Note:** Input handling is implemented only as experimental feature so far. See [docs](docs/raw_API.md#raw-input-mode) for more information.
 
 ### Example
 
