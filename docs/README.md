@@ -23,13 +23,18 @@ Tuya is a minimalistic TUI library designed for minimal resource consumption by 
       * [creating progress bar](stable_API.md#creating-progress-bar)
       * [updating progress bar](stable_API.md#updating-progress-bar)
 * [tuya_raw.h](raw_API.md) - experimental, legacy and ugly functions to use
-  * [legacy](raw_API.md#legacy)
-    * [non-difference based updating](raw_API.md#non-difference-based-updating)
   * [ansi codes](raw_API.md#ansi-codes)
     * [moving cursor](raw_API.md#moving-cursor)
     * [clearing terminal](raw_API.md#clearing-terminal)
     * [hiding and showing cursor](raw_API.md#hiding-and-showing-cursor)
     * [turning alternative screen on and off](raw_API.md#turning-alternative-screen-on-and-off)
+  * [raw input mode](raw_API.md#raw-input-mode)
+    * [enabling raw](raw_API.md#enabling-raw)
+    * [disabling raw](raw_API.md#disabling-raw)
+  * [legacy](raw_API.md#legacy)
+    * [non-difference based updating](raw_API.md#non-difference-based-updating)
+  * [widgets](raw_API.md#widgets)
+    * [ask input](raw_API.md#ask-input)
 
 ## Installation
 
