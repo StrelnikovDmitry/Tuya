@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(Tuya
-    VERSION 1.2.2
+    VERSION 1.3.0
     LANGUAGES C
 )
 
@@ -17,6 +17,7 @@ add_library(tuya STATIC
     src/slice/slice_funcs.c
 
     src/widgets/progress_bar.c
+    src/widgets/input_widget.c
 
     src/terminal/ansi.c
 )
