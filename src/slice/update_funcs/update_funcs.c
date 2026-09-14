@@ -49,6 +49,12 @@ void update_slice(Slice *sl, char *content) {
 	int start_y = 0;
 
     for (int i = 0; i < sl->size - 1; i++) {
+        // if new state ended, end the content in slice
+        if (content[i] == '\0') {
+            sl->buffer[i] = '\0';
+            break;
+        }
+
         // checking whether we should go to another line
         if ( i && !( i % get_width(sl) ) ) {
             if (start_edit) {
